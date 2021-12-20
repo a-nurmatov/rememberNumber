@@ -20,6 +20,7 @@ function start() {
   }, 1000)
   let title = document.getElementById('title').classList.add('d-none');
   let cards = document.getElementById('cards').classList.remove('d-none');
+  createCards();
 }
 
 const volumeControl = () => {
@@ -40,17 +41,26 @@ function getRandomNumber(min = 1, max = 100) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let number1 = document.getElementById('number1')
-let number2 = document.getElementById('number2')
-let number3 = document.getElementById('number3')
-let number4 = document.getElementById('number4')
-
-let randomNumbers = [getRandomNumber(), getRandomNumber(), getRandomNumber(), getRandomNumber()]
-number1.innerHTML = randomNumbers[0]
-number2.innerHTML = randomNumbers[1]
-number3.innerHTML = randomNumbers[2]
-number4.innerHTML = randomNumbers[3]
+let randomNumbers = [];
+let cardAmount = 4;
 var trueAnswers = 0;
+
+function createCards() {
+  let card_list = document.getElementById('cards');
+
+  for (let i = 0; i < cardAmount; i++) {
+    let num = getRandomNumber();
+    randomNumbers.push(num);
+    card_list.innerHTML +=
+      `<div class="col-md-2 col-sm-6 col-6 px-2">
+      <div class="myCard">
+        <div class="front"><span id="number${i}">${randomNumbers[i]}</span></div>
+        <div class="back" onclick="choice(event)"></div>
+      </div>
+    </div>`
+  }
+}
+
 function choice(event) {
   let sorted = [...randomNumbers].sort((a, b) => a - b);
   let back = event.target;
@@ -63,23 +73,25 @@ function choice(event) {
     if (myIndex !== -1) {
       randomNumbers.splice(myIndex, 1);
     }
-    trueAnswers++
+    trueAnswers++;
     console.log(trueAnswers)
-    if (trueAnswers == 4) {
-      let show = () => {
-        let message = document.getElementById('message')
-        message.classList.remove('d-none')
-        document.getElementById('result-message').innerHTML = 'Siz yutdingiz!';
-      }
-      setTimeout(show(), 3000);
+    if (trueAnswers == cardAmount) {
+      setTimeout(function () { showMessage('Siz yutdingiz!', 'rgba(25, 135, 84, 0.8)', 'fa-play', 'nextLevel()') }, 1000);
     }
   }
   else {
-    let message = document.getElementById('message')
-    message.classList.remove('d-none')
-    document.getElementById('result-message').innerHTML = 'Siz yutqazdingiz!';
-    document.getElementById('result-box').style.backgroundColor = '#DC3545'
+    setTimeout(function () { showMessage('Siz yutqazdingiz!', '#dc3848cc', 'fa-refresh', 'reload()') }, 1000);
   }
+}
+
+let showMessage = (text, bgColor, buttonIcon, callback) => {
+  let message = document.getElementById('message')
+  message.classList.remove('d-none')
+  document.getElementById('result-message').innerHTML = `${text}`;
+  document.getElementById('result-box').style.backgroundColor = `${bgColor}`
+  let btn = document.getElementById('messageButton');
+  btn.classList.add(buttonIcon);
+  btn.setAttribute('onclick', `${callback}`);
 }
 
 function reload() {
