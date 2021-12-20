@@ -1,9 +1,7 @@
 let bgmusic = document.getElementById('bgmusic')
-window.onload = function () {
-  bgmusic.play();
-}
 
 function start() {
+  bgmusic.play();
   let timer = document.getElementById('timer');
   timer.innerHTML = 5;
   let period = 4;
