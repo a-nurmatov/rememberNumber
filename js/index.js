@@ -1,15 +1,38 @@
-let bgmusic = document.getElementById('bgmusic')
+let bgmusic = document.getElementById('bgmusic');
+let firstStep = true;
+let randomNumbers = [];
+let cardAmount = 3;
+var trueAnswers = 0;
+let chance = 4;
+let level = 1;
+document.getElementById('level').innerHTML = level;
 
 function start() {
-  bgmusic.play();
+  let volumeIcon = document.getElementById('volumeButton').children[0]
+  if (volumeIcon.classList.contains('fa-volume-up')) bgmusic.play()
+  else bgmusic.pause()
+  document.getElementById('message').classList.add('d-none')
+  timeControl();
+  let title = document.getElementById('title').classList.add('d-none');
+  let cards = document.getElementById('cards').classList.remove('d-none');
+  createCards(cardAmount);
+  chance--;
+  document.getElementById('chance').innerHTML = chance;
+  console.log(chance)
+}
+
+function timeControl(time = 5) {
   let timer = document.getElementById('timer');
-  timer.innerHTML = 5;
-  let period = 4;
+  timer.innerHTML = time;
+  let period = time - 1;
+  timer.removeAttribute('onclick')
   let my_timer = setInterval(function () {
     timer.innerHTML = period;
     period--;
     if (period <= -1) {
       clearInterval(my_timer)
+      if (chance > 0) timer.setAttribute('onclick', 'start()');
+      timer.innerHTML = `<i class="fa fa-refresh" aria-hidden="true"></i>`;
       let cards_front = document.getElementsByClassName('front')
       let cards_back = document.getElementsByClassName('back')
       for (let i = 0; i < cards_front.length; i++) {
@@ -18,9 +41,6 @@ function start() {
       }
     }
   }, 1000)
-  let title = document.getElementById('title').classList.add('d-none');
-  let cards = document.getElementById('cards').classList.remove('d-none');
-  createCards();
 }
 
 const volumeControl = () => {
@@ -41,24 +61,34 @@ function getRandomNumber(min = 1, max = 100) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let randomNumbers = [];
-let cardAmount = 4;
-var trueAnswers = 0;
-
-function createCards() {
+function createCards(cardAmount) {
   let card_list = document.getElementById('cards');
-
+  randomNumbers = [];
+  card_list.innerHTML = '';
+  let cell = 6;
+  if (cardAmount >= 5 && cardAmount <= 9) cell = 4;
+  if (cardAmount > 9 ) cell = 3;
   for (let i = 0; i < cardAmount; i++) {
     let num = getRandomNumber();
     randomNumbers.push(num);
     card_list.innerHTML +=
-      `<div class="col-md-2 col-sm-6 col-6 px-2">
+      `<div class="col-md-2 col-sm-${cell} col-${cell} px-2">
       <div class="myCard">
         <div class="front"><span id="number${i}">${randomNumbers[i]}</span></div>
         <div class="back" onclick="choice(event)"></div>
       </div>
     </div>`
   }
+}
+
+function nextLevel() {
+  document.getElementById('level').innerHTML = level;
+  trueAnswers = 0
+  cardAmount++;
+  let message = document.getElementById('message')
+  message.classList.add('d-none')
+  createCards(cardAmount);
+  timeControl();
 }
 
 function choice(event) {
@@ -76,11 +106,20 @@ function choice(event) {
     trueAnswers++;
     console.log(trueAnswers)
     if (trueAnswers == cardAmount) {
-      setTimeout(function () { showMessage('Siz yutdingiz!', 'rgba(25, 135, 84, 0.8)', 'fa-play', 'nextLevel()') }, 1000);
+      level++;
+      setTimeout(function () { showMessage('Keyingi bosqich sizni kutmoqda!', 'rgba(25, 135, 84, 0.8)', 'fa-play', 'nextLevel()') }, 1000);
     }
   }
   else {
-    setTimeout(function () { showMessage('Siz yutqazdingiz!', '#dc3848cc', 'fa-refresh', 'reload()') }, 1000);
+    bgmusic.pause();
+    document.getElementById('fail').play();
+    cardAmount = 3;
+    trueAnswers = 0;
+    let result = level;
+    chance = 4;
+    setTimeout(function () { showMessage(`Siz natijangiz <br>${result}-bosqich`, '#dc3848cc', 'fa-refresh', 'start()') }, 1000);
+    level = 1;
+    document.getElementById('level').innerHTML = level;
   }
 }
 
@@ -90,11 +129,8 @@ let showMessage = (text, bgColor, buttonIcon, callback) => {
   document.getElementById('result-message').innerHTML = `${text}`;
   document.getElementById('result-box').style.backgroundColor = `${bgColor}`
   let btn = document.getElementById('messageButton');
+  btn.className = "fa fa-3x";
   btn.classList.add(buttonIcon);
   btn.setAttribute('onclick', `${callback}`);
-}
-
-function reload() {
-  window.location.reload(true)
 }
 
