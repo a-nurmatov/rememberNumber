@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap');
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: url(../img/cubes.png), url(../img/back.png);
   background-size: contain, cover;
   background-repeat: no-repeat;
@@ -76,7 +76,7 @@ body {
 .front, .back {
   display: grid;
   place-items: center;
-  background-color: #299D7D;
+  background-color: #0A5949;
   padding: 20px 15px;
   min-width: 50px;
   width: 100%;
