@@ -18,7 +18,6 @@ function start() {
   createCards(cardAmount);
   chance--;
   document.getElementById('chance').innerHTML = chance;
-  console.log(chance)
 }
 
 function timeControl(time = 5) {
@@ -107,7 +106,7 @@ function choice(event) {
     console.log(trueAnswers)
     if (trueAnswers == cardAmount) {
       level++;
-      setTimeout(function () { showMessage('Keyingi bosqich sizni kutmoqda!', 'rgba(25, 135, 84, 0.8)', 'fa-play', 'nextLevel()') }, 1500);
+      setTimeout(function () { showMessage('Keyingi bosqich sizni kutmoqda!', 'rgba(25, 135, 84, 0.8)', 'fa-play', 'nextLevel()') }, 1000);
     }
   }
   else {
@@ -117,7 +116,7 @@ function choice(event) {
     trueAnswers = 0;
     let result = level;
     chance = 4;
-    setTimeout(function () { showMessage(`Siz natijangiz <br>${result}-bosqich`, '#dc3848cc', 'fa-refresh', 'start()') }, 1500);
+    setTimeout(function () { showMessage(`Siz natijangiz <br>${result}-bosqich`, '#dc3848cc', 'fa-refresh', 'start()') }, 1000);
     level = 1;
     document.getElementById('level').innerHTML = level;
   }
