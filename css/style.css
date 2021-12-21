@@ -53,6 +53,9 @@ body {
 #timer {
   cursor: pointer; }
 
+#volumeButton {
+  font-size: 22px; }
+
 .myCard {
   position: relative;
   cursor: pointer; }
