@@ -103,7 +103,6 @@ function choice(event) {
       randomNumbers.splice(myIndex, 1);
     }
     trueAnswers++;
-    console.log(trueAnswers)
     if (trueAnswers == cardAmount) {
       level++;
       setTimeout(function () { showMessage(`Congrats!<br/>Next level`, 'rgba(25, 135, 84, 0.8)', 'fa-play', 'nextLevel()') }, 1000);
