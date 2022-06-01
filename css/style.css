@@ -1,69 +1,82 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap");
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: url(../img/cubes.png), url(../img/back.png);
   background-size: contain, cover;
   background-repeat: no-repeat;
   background-position: 0 103%, 0 0;
   min-height: 100vh;
-  position: relative; }
-  body::after {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    display: block;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: linear-gradient(0deg, #0a59497a, #0a594969, transparent); }
+  position: relative;
+}
+body::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(0deg, #0a59497a, #0a594969, transparent);
+}
 
 ::-webkit-scrollbar {
-  width: 10px; }
+  width: 10px;
+}
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #0A5949; }
+  background: #0a5949;
+}
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #299D7D; }
+  background: #299d7d;
+}
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; }
+  background: #555;
+}
 
 .container {
-  max-width: 1400px; }
+  max-width: 1400px;
+}
 
 .btn {
-  box-shadow: none !important; }
+  box-shadow: none !important;
+}
 
 .timer-board {
-  border: 10px solid #0A5949;
-  color: #0A5949;
+  border: 10px solid #0a5949;
+  color: #0a5949;
   width: 120px;
   height: 120px;
   font-size: 54px;
   display: grid;
   place-items: center;
   font-weight: 700;
-  box-shadow: #0A5949 0px 2px 8px; }
+  box-shadow: #0a5949 0px 2px 8px;
+}
 
 #timer {
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 #volumeButton {
-  font-size: 22px; }
+  font-size: 22px;
+}
 
 .myCard {
   position: relative;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
-.front, .back {
+.front,
+.back {
   display: grid;
   place-items: center;
-  background-color: #0A5949;
+  background-color: #0a5949;
   padding: 20px 15px;
   min-width: 50px;
   width: 100%;
@@ -73,11 +86,13 @@ body {
   color: white;
   font-weight: 700;
   backface-visibility: hidden;
-  transition: 1s; }
+  transition: 1s;
+}
 
 .front {
   transform: rotateY(0deg);
-  transition: transform 1s ease; }
+  transition: transform 1s ease;
+}
 
 .back {
   position: absolute;
@@ -85,26 +100,33 @@ body {
   top: 0;
   left: 0;
   transform: rotateY(180deg);
-  transition: transform 1s ease; }
+  transition: transform 1s ease;
+}
 
 .result-box {
   border-radius: 20px;
   padding: 20px;
   width: 280px;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
 #message {
   background-color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  height: 100vh;
   display: grid;
   place-items: center;
-  position: absolute;
-  top: 0; }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
 
 @media screen and (max-width: 768px) {
   .front {
     font-size: 24px;
-    padding: 20px 10px; } }
+    padding: 20px 10px;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */
