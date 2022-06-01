@@ -112,12 +112,14 @@ body {
 
 #message {
   background-color: rgba(0, 0, 0, 0.8);
-  width: 100vw;
-  height: 100vh;
   display: grid;
   place-items: center;
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
 }
 
 @media screen and (max-width: 768px) {
